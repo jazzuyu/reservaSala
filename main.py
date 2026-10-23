@@ -27,9 +27,7 @@ Base = declarative_base()
 try:
     TIMEZONE = ZoneInfo("America/Sao_Paulo")
 except ZoneInfoNotFoundError:
-    # O Windows pode não ter a base IANA instalada. São Paulo usa UTC-3.
     TIMEZONE = timezone(timedelta(hours=-3), "America/Sao_Paulo")
-# Defina SESSION_SECRET para preservar as sessões entre reinicializações/workers.
 SESSION_SECRET = os.getenv("SESSION_SECRET", secrets.token_hex(32)).encode()
 security = HTTPBearer(auto_error=False)
 
@@ -154,7 +152,6 @@ def verificar_senha(senha, armazenada):
             return hmac.compare_digest(calculado, digest)
         except ValueError:
             return False
-    # Compatibilidade com o schema.sql existente; migra a senha no primeiro login.
     return hmac.compare_digest(senha.encode(), armazenada.encode())
 
 
@@ -273,7 +270,6 @@ def criar_agendamento(item: AgendamentoCreate, db: Session = Depends(get_db),
         item.data_agendamento == momento.date() and inicio <= momento.hour * 60 + momento.minute
     ):
         raise HTTPException(422, "Escolha uma data e um horário futuros.")
-    # Serializa as reservas da mesma sala no MySQL para evitar conflitos concorrentes.
     sala = db.query(SalaModel).filter(SalaModel.id == item.sala_id).with_for_update().first()
     if sala is None:
         raise HTTPException(404, "Sala não encontrada.")
