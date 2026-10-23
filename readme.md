@@ -2,7 +2,7 @@
 
 O SalaFácil é um trabalho acadêmico desenvolvido para a disciplina **Análise e Projeto de Sistemas II**, do curso de **Sistemas de Informação**.
 
-O projeto tem como objetivo organizar a consulta e a reserva de salas em uma instituição de ensino. A interface segue o protótipo elaborado no Word e permite acompanhar a agenda, consultar a disponibilidade dos espaços e criar agendamentos.
+O projeto tem como objetivo organizar a consulta e a reserva de salas em uma instituição de ensino. A interface segue o protótipo elaborado no Figma e permite acompanhar a agenda, consultar a disponibilidade dos espaços e criar agendamentos.
 
 ## Tecnologias
 
@@ -21,8 +21,6 @@ As instruções abaixo utilizam o terminal **PowerShell no Windows**. Comece na 
 Na primeira configuração, abra o arquivo `schema.sql` no MySQL Workbench e execute o script. Ele cria o banco `salafacil`, as tabelas e os registros iniciais de usuário e salas.
 
 Se o banco e as tabelas já estiverem configurados, pule esta etapa. O script contém comandos de criação de tabelas e inserção de dados que não devem ser repetidos em um banco já preparado.
-
-**Atenção ao login:** o e-mail do usuário de exemplo em `schema.sql` contém `;com` no lugar de `.com`. Corrija esse valor antes de importar o script. Se já importou, ajuste o registro na tabela `usuarios` ou utilize o e-mail exatamente como está salvo. A senha inicial está no mesmo comando `INSERT` do script e serve para demonstração acadêmica.
 
 ## 2. Rodar o backend
 
@@ -77,12 +75,12 @@ O frontend se conecta à API em `http://localhost:8000`. O backend e o frontend 
 
 As variáveis abaixo permitem adaptar os endereços sem editar o código:
 
-| Variável | Onde definir | Finalidade |
-| --- | --- | --- |
-| `DATABASE_URL` | Terminal do backend | Configurar a conexão com o MySQL. |
-| `FRONTEND_ORIGINS` | Terminal do backend | Informar as origens permitidas pelo CORS, separadas por vírgula. Por padrão, permite `http://localhost:5173` e `http://127.0.0.1:5173`. |
-| `SESSION_SECRET` | Terminal do backend | Definir um segredo privado e estável para assinar as sessões. Sem essa variável, reiniciar a API exige um novo login. |
-| `VITE_API_URL` | Terminal do frontend ou arquivo `frontend/.env.local` | Alterar o endereço da API. Reinicie o Vite após mudar esse valor. |
+| Variável           | Onde definir                                          | Finalidade                                                                                                                              |
+| ------------------ | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`     | Terminal do backend                                   | Configurar a conexão com o MySQL.                                                                                                       |
+| `FRONTEND_ORIGINS` | Terminal do backend                                   | Informar as origens permitidas pelo CORS, separadas por vírgula. Por padrão, permite `http://localhost:5173` e `http://127.0.0.1:5173`. |
+| `SESSION_SECRET`   | Terminal do backend                                   | Definir um segredo privado e estável para assinar as sessões. Sem essa variável, reiniciar a API exige um novo login.                   |
+| `VITE_API_URL`     | Terminal do frontend ou arquivo `frontend/.env.local` | Alterar o endereço da API. Reinicie o Vite após mudar esse valor.                                                                       |
 
 Exemplo de configuração em `frontend/.env.local`:
 
